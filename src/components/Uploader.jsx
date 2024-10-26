@@ -3,30 +3,32 @@ import './Uploader.css'
 import { MdCloudUpload, MdDelete} from 'react-icons/md'
 import { AiFillFileImage } from 'react-icons/ai'
 
-function Uploader() {
-    const [image, setImage] = useState(null)
-    const [fileName, setFileName] = useState("No Selected File - ")
-    const [responseMessage, setResponseMessage] = useState('')
+function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setExplanation, setTreatment}) {
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleUploadImage = (ev) => {
-        ev.preventDefault(); // Prevent the default form submission
+        ev.preventDefault();
 
         const fileInput = document.getElementById('input-file');
         const data = new FormData();
-        data.append('file', fileInput.files[0]); // Append the selected file
+        data.append('file', fileInput.files[0]);
 
         fetch('http://127.0.0.1:5001/upload', {
             method: 'POST',
             body: data,
         })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((body) => {
-            console.log('Upload successful:', body); // Log the response from the backend
-            setResponseMessage(body);
+            console.log('Upload successful:', body);
+            setDiagnosis(body.diagnosis); 
+            setExplanation(body.explanation);
+            setTreatment(body.treatment);
+            setButtonPopup(true);
+            setErrorMessage('');
         })
         .catch((error) => {
             console.error('Upload failed:', error);
-            setResponseMessage('Upload failed. Please try again.');
+            setErrorMessage('Upload failed. Please try again.');
         });
     };
 
@@ -40,6 +42,7 @@ function Uploader() {
                 files[0] && setFileName(files[0].name)
                 if (files) {
                 setImage(URL.createObjectURL(files[0]))
+                setErrorMessage('');
                 }
             }}/>
             <div id="img-view">
@@ -57,13 +60,17 @@ function Uploader() {
             <MdDelete onClick={() => {
                 setFileName("No Selected File - ")
                 setImage(null)
+                form.reset();
             }}/>
             </span>
         </section>
         <div id="center-button">
-            <button type="submit" form="upload-form" id="results">See Results</button>
+            <button type="submit" form="upload-form" id="results" onClick={() => {
+                setErrorMessage('')
+            }
+                }>See Results</button>
         </div>
-        {responseMessage && <div className="response-message">{responseMessage}</div>}
+        {errorMessage && <div className="response-message">{errorMessage}</div>}
         </>
     )
 }

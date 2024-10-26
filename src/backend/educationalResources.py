@@ -7,14 +7,14 @@ import os
 def generate_content(diagnosis):
     
     vertexai.init(project="forward-vector-439602-v4", location="us-central1")
-    """ tools = [
+    tools = [
         Tool.from_google_search_retrieval(
             google_search_retrieval=grounding.GoogleSearchRetrieval()
         ),
-    ] """
+    ]
     model = GenerativeModel(
         "gemini-1.5-flash-002",
-        # tools=tools,
+        tools=tools,
     )
 
     generation_config = {
@@ -43,8 +43,8 @@ def generate_content(diagnosis):
     ]
 
     response = model.generate_content(
-        contents = f"""Based on the diagnosis: {diagnosis}, provide only a list and explanation of 5 different treatments. Include 
-                        risks and side effects, treatment goals and expectations, potential/average duration and cost of treatment, impact on daily life.
+        contents = f"""Based on the diagnosis: {diagnosis}, provide a list and 1 paragraph summary of 3 of the newest research papers related to treatment and the disease. 
+                    Provide the links to the paper below
                         """,
         safety_settings= safety_settings,
         generation_config= generation_config)

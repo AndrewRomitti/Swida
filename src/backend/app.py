@@ -1,10 +1,12 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, session
+from flask import Flask, flash, request, redirect, url_for, session, jsonify
 from werkzeug.utils import secure_filename
 import flask_cors
 from flask_cors import CORS, cross_origin
 import logging
 import hf_pred as lung
+import treatment
+import explanation
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,14 +33,20 @@ def fileUpload():
     file.save(destination)
     session['uploadFilePath'] = destination
     
-    result = lung.predict(destination)
-    print(f"The result is: {result} ({type(result)})")
+    lungModelPrediction = lung.predict(destination)
+    print(f"The result is: {lungModelPrediction} ({type(lungModelPrediction)})")
+    
+    # LLM Prompting
+    explanationText = explanation.generate_content(lungModelPrediction)
+    treatmentText = treatment.generate_content(lungModelPrediction)
     
     response = {
-        
+        "diagnosis": lungModelPrediction,
+        "explanation": explanationText,
+        "treatment": treatmentText
     }
-    
-    return result
+
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)
