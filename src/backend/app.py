@@ -14,7 +14,7 @@ UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"], expose_headers='Authorization')
+CORS(app, expose_headers='Authorization')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/upload', methods=['POST'])
