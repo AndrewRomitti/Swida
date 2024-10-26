@@ -1,7 +1,8 @@
 .main-popup {
     width: 1550px;
     height: 740px;
-    background-color:rgba(240, 240, 240, 0.984);
+    /*background-color:rgba(240, 240, 240, 0.984);*/
+    background-color:white;
     border: solid, 1px, black;
     border-radius: 15px;
 
@@ -14,7 +15,7 @@
     font-size: 2rem;
 }
 
-span {
+.binaryR {
     color:darkred;
 }
 
@@ -32,6 +33,36 @@ span {
     width: 31.5%;
     height: 100%;
     background-color:white;
+}
 
-    border-radius: 40px;
+.gradCol {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-right-style:solid;
+    border-right-color:gray;
+    border-right-width:1px;
+}
+
+.colHead {
+    width:100%;
+    text-align:center;
+    font-size: 1.2rem;
+}
+
+.colBody {
+    height:auto;
+    width: 90%;
+}
+
+.colImg {
+    width: 40%;
+    height: 60%;
+    background-color:gray;
+}
+
+.resCol {
+    border-left-style:solid;
+    border-left-color:gray;
+    border-left-width:1px;
 }
