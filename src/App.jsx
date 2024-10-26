@@ -1,15 +1,18 @@
-import { useState } from 'react'
-import Uploader from './components/Uploader';
-import './App.css'
+import React, { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/home.jsx';
+import Popup from './pages/popup.jsx';
+import './App.css';
 
 function App() {
   return (
-    <>
-      <h1 className="inter-header">swida</h1>
-      <h2 className="inter-header">an ai lung cancer assistant</h2>
-      <Uploader />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/popup" element={<Popup />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
