@@ -10,13 +10,14 @@ const CustomPopup = (props) => {
   };
 
   const diagnosisLabel = props.diagnosis === 'Normal' ? 'Healthy' : 'Cancer Detected';
+  const diagnosisColor = props.diagnosis === 'Normal' ? 'green' : 'red';
 
   return props.trigger ? (
     <>
     <div className="popup">
       <div className="main-popup">
         <div className="title">
-          <h1 className="inter-header">Your Result: <br/>{diagnosisLabel}</h1>
+          <h1 className="inter-header">Your Result: <br/><span style={{ color: diagnosisColor }}>{diagnosisLabel}</span></h1>
         </div>
         <div className="result-container">
           {props.diagnosis === 'Normal' ? (

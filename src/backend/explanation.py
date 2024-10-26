@@ -42,11 +42,15 @@ def generate_content(diagnosis):
         ),
     ]
 
-    response = model.generate_content(
+    if diagnosis != "Normal":
+        response = model.generate_content(
         contents = f"""Based on the diagnosis: {diagnosis}, provide a 1 paragraph explanation of the disease, symptoms to look out for if it worsens,
                         and a 5 bullet point list of potential causes.
                         """,
         safety_settings= safety_settings,
         generation_config= generation_config)
-    return response.candidates[0].content.parts[0].text
+        
+        return response.candidates[0].content.parts[0].text
+    
+    return ""
 
