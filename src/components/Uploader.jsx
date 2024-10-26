@@ -6,9 +6,31 @@ import { AiFillFileImage } from 'react-icons/ai'
 function Uploader() {
     const [image, setImage] = useState(null)
     const [fileName, setFileName] = useState("No Selected File - ")
+
+    const handleUploadImage = (ev) => {
+        ev.preventDefault(); // Prevent the default form submission
+
+        const fileInput = document.getElementById('input-file');
+        const data = new FormData();
+        data.append('file', fileInput.files[0]); // Append the selected file
+
+        fetch('http://127.0.0.1:5001/upload', {
+            method: 'POST',
+            body: data,
+        })
+        .then((response) => response.json())
+        .then((body) => {
+            console.log('Upload successful:', body); // Log the response from the backend
+        })
+        .catch((error) => {
+            console.error('Upload failed:', error);
+        });
+    };
+
+
     return (
         <>
-        <form>
+        <form id="upload-form" onSubmit={handleUploadImage}>
             <label htmlFor="input-file" id="drop-area">
             <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" onClick = { (event) => { event.target.value = null; }}  
             hidden onChange={({ target: {files}}) => {
@@ -35,6 +57,9 @@ function Uploader() {
             }}/>
             </span>
         </section>
+        <div id="center-button">
+            <button type="submit" form="upload-form" id="results">See Results</button>
+        </div>  
         </>
     )
 }
