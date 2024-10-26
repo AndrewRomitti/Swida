@@ -6,7 +6,7 @@ from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image
 from torchvision.models import resnet50
 import torch.nn as nn
-from torchvision import datasets, models, transforms
+from torchvision import transforms
 
 def compute_gradcam(img, STATE_DICT_PATH="../../model_code/model_ft_3.pt", NUM_CLASSES=4):
     model = resnet50(pretrained=True)
