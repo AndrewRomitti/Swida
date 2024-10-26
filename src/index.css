@@ -53,24 +53,3 @@ h2 {
   margin: 0px;
   padding: 0px;
 }
-
-#center-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#results {
-  background-color: #2d2c36;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 400;
-  font-family: inherit;
-  border-radius: 8px;
-  border: 3px solid transparent;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-#results:hover {
-  border-color: #646cff;
-}
