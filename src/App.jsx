@@ -9,7 +9,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/popup" element={<Popup />} />
       </Routes>
     </BrowserRouter>
   )
