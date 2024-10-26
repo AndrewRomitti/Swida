@@ -60,6 +60,7 @@ input {
     align-items: center;
     justify-content: center;
   }
+
   #results {
     background-color: #2d2c36;
     padding: 0.6em 1.2em;
@@ -70,8 +71,15 @@ input {
     border: 3px solid transparent;
     cursor: pointer;
     transition: border-color 0.25s;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
   }
   
   #results:hover {
     border-color: #646cff;
+  }
+
+  .response-message {
+    margin-top: 25px;
+    text-align: center;
+    color: rgb(175, 7, 7);
   }

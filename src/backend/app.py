@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import flask_cors
 from flask_cors import CORS, cross_origin
 import logging
+import hf_pred as lung
 
 logging.basicConfig(level=logging.INFO)
 
@@ -13,7 +14,7 @@ UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
-# CORS(app, origins=["http://localhost:5173"], expose_headers='Authorization')
+CORS(app, origins=["http://localhost:5173"], expose_headers='Authorization')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/upload', methods=['POST'])
@@ -28,10 +29,16 @@ def fileUpload():
     filename = secure_filename(file.filename)
     destination="/".join([target, filename])
     file.save(destination)
-    
     session['uploadFilePath'] = destination
-    response="success"
-    return response
+    
+    result = lung.predict(destination)
+    print(f"The result is: {result} ({type(result)})")
+    
+    response = {
+        
+    }
+    
+    return result
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)

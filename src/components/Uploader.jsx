@@ -6,6 +6,7 @@ import { AiFillFileImage } from 'react-icons/ai'
 function Uploader() {
     const [image, setImage] = useState(null)
     const [fileName, setFileName] = useState("No Selected File - ")
+    const [responseMessage, setResponseMessage] = useState('')
 
     const handleUploadImage = (ev) => {
         ev.preventDefault(); // Prevent the default form submission
@@ -18,12 +19,14 @@ function Uploader() {
             method: 'POST',
             body: data,
         })
-        .then((response) => response.json())
+        .then((response) => response.text())
         .then((body) => {
             console.log('Upload successful:', body); // Log the response from the backend
+            setResponseMessage(body);
         })
         .catch((error) => {
             console.error('Upload failed:', error);
+            setResponseMessage('Upload failed. Please try again.');
         });
     };
 
@@ -59,7 +62,8 @@ function Uploader() {
         </section>
         <div id="center-button">
             <button type="submit" form="upload-form" id="results">See Results</button>
-        </div>  
+        </div>
+        {responseMessage && <div className="response-message">{responseMessage}</div>}
         </>
     )
 }
