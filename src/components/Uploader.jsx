@@ -2,12 +2,14 @@ import React, { useState} from 'react'
 import './Uploader.css'
 import { MdCloudUpload, MdDelete} from 'react-icons/md'
 import { AiFillFileImage } from 'react-icons/ai'
+import { TailSpin } from 'react-loader-spinner'
 
-function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage, setEducationalResources}) {
+function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage, setEducationalResources, loading, setLoading}) {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleUploadImage = (ev) => {
         ev.preventDefault();
+        setLoading(true);
 
         const fileInput = document.getElementById('input-file');
         const data = new FormData();
@@ -37,6 +39,9 @@ function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDi
         .catch((error) => {
             console.error('Upload failed:', error);
             setErrorMessage('Upload failed. Please try again.');
+        })
+        .finally(() => {
+            setLoading(false);
         });
     };
 
@@ -77,6 +82,16 @@ function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDi
                 setErrorMessage('')
             }
                 }>See Results</button>
+            
+            {loading && (
+                <TailSpin
+                    height={20}
+                    width={20}
+                    color="#4caf50"
+                    ariaLabel="loading"
+                    className="spinner"
+                />
+            )}
         </div>
         {errorMessage && <div className="response-message">{errorMessage}</div>}
         </>
