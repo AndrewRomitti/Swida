@@ -3,7 +3,7 @@ import './Uploader.css'
 import { MdCloudUpload, MdDelete} from 'react-icons/md'
 import { AiFillFileImage } from 'react-icons/ai'
 
-function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage}) {
+function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage, setEducationalResources}) {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleUploadImage = (ev) => {
@@ -26,6 +26,7 @@ function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDi
             setTreatment(body.treatment);
             setButtonPopup(true);
             setErrorMessage('');
+            setEducationalResources(body.resources);
 
             if (body.gradcam) {
                 const image = `data:image/jpeg;base64,${body.gradcam.trim()}`;;

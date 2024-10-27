@@ -15,9 +15,10 @@ const Home = () => {
   const [gradcamImage, setGradcamImage] = useState('');
   const [explanation, setExplanation] = useState('');
   const [treatment, setTreatment] = useState('');
+  const [educationalResources, setEducationalResources] = useState('');
 
   useEffect(() => {
-    console.log('Updated gradcamImage:', gradcamImage); // Log the updated value
+    console.log('Updated gradcamImage:', gradcamImage);
   }, [gradcamImage]);
 
   const resetUploader = () => {
@@ -43,6 +44,7 @@ const Home = () => {
         form={form}
         gradcamImage={gradcamImage}
         setGradcamImage={setGradcamImage}
+        setEducationalResources={setEducationalResources}
       />
       <CustomPopup 
         trigger={buttonPopup} 
@@ -53,7 +55,8 @@ const Home = () => {
         gradcam={gradcam}
         explanation={explanation}
         treatment={treatment}
-        gradcamImage={gradcamImage} />
+        gradcamImage={gradcamImage}
+        educationalResources={educationalResources} />
     </>
   );
 }

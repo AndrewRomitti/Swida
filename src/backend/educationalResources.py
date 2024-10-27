@@ -5,8 +5,8 @@ from io import StringIO
 
 def fetch_pubmed_data(email, search_term, retmax):
     Entrez.email = email
-
-    handle = Entrez.esearch(db="pubmed", term=search_term, retmax=retmax)
+    print(search_term)
+    handle = Entrez.esearch(db="pubmed", term=search_term, retmax=retmax, sort="pub_date")
     record = Entrez.read(handle)
     handle.close()
 
@@ -93,9 +93,9 @@ def generate_content(diagnosis, df):
                             In one sentence after, explain how the article is useful for lung cancer patient.
                             Structure your response as:
                             
-                            {article["Title"]}
+                            Title: {article["Title"]} (Bold this)
                             - Key Finding: (Enter Key Finding)
-                            - Link: {article["Link"]}
+                            - Link: {article["Link"]} (Format this to link to url)
                             - Date: {article["Publication Date"]}
                             """,
             safety_settings= safety_settings,
@@ -110,10 +110,7 @@ def getEducationalResources(diagnosis):
         search_term = "Lung Cancer Screening and Prevention"
     else:
         search_term = diagnosis + " Lung Cancer"
-    retmax = 10
+    retmax = 50
 
     pubmed_data = fetch_pubmed_data(email, search_term, retmax)
-    print(pubmed_data.head())
     return generate_content(diagnosis, pubmed_data)
-
-print(getEducationalResources("large cell carcinoma"))

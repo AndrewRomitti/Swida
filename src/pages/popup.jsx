@@ -30,22 +30,25 @@ const CustomPopup = (props) => {
               <h2 className="inter-subheader">Explanation</h2>
               <ReactMarkdown>{ props.explanation }</ReactMarkdown>
               </div>
+              <div className="gradcam">
+              <h2 className="inter-subheader">Grad-CAM Visualization</h2>
+              {props.gradcamImage ? (
+                  <img src={props.gradcamImage} alt="Grad-CAM" style={{ maxWidth: '100%', marginTop: '20px' }} />
+                ) : (
+                  <p>No Grad-CAM image available.</p>
+                )}
+              </div>
             </div>
             )}
-          <div className="gradcam">
-          <h2 className="inter-subheader">Grad-CAM Visualization</h2>
-          {props.gradcamImage ? (
-              <img src={props.gradcamImage} alt="Grad-CAM" style={{ maxWidth: '100%', marginTop: '20px' }} />
-            ) : (
-              <p>No Grad-CAM image available.</p>
-            )}
-          </div>
           <div className="treatment">
             <h2 className="inter-subheader">{props.diagnosis === 'Normal' ? 'Prevention' : 'Treatment'}</h2>
             <ReactMarkdown>{ props.treatment }</ReactMarkdown>
           </div>
           <div className="educational-resources">
             <h2 className="inter-subheader">Educational Resources</h2>
+            <ReactMarkdown>{ props.educationalResources[0] }</ReactMarkdown>
+            <ReactMarkdown>{ props.educationalResources[1] }</ReactMarkdown>
+            <ReactMarkdown>{ props.educationalResources[2] }</ReactMarkdown>
           </div>
         </div>
         <button className="close-popup" onClick={closePopup}>close</button>

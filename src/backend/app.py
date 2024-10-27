@@ -10,6 +10,7 @@ import treatment
 import explanation
 import base64
 import io
+import educationalResources
 
 logging.basicConfig(level=logging.INFO)
 
@@ -48,12 +49,14 @@ def fileUpload():
     # LLM Prompting
     explanationText = explanation.generate_content(lungModelPrediction)
     treatmentText = treatment.generate_content(lungModelPrediction)
+    resourcesArr = educationalResources.getEducationalResources(lungModelPrediction)
     
     response = {
         "diagnosis": lungModelPrediction,
         "gradcam": encoded_string,
         "explanation": explanationText,
-        "treatment": treatmentText
+        "treatment": treatmentText,
+        "resources": resourcesArr
     }
 
     return jsonify(response)
