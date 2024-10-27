@@ -7,11 +7,11 @@ import os
 def generate_content(diagnosis):
     
     vertexai.init(project="forward-vector-439602-v4", location="us-central1")
-    """ tools = [
+    tools = [
         Tool.from_google_search_retrieval(
             google_search_retrieval=grounding.GoogleSearchRetrieval()
         ),
-    ] """
+    ]
     model = GenerativeModel(
         "gemini-1.5-flash-002",
         # tools=tools,
