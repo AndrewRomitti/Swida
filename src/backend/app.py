@@ -5,8 +5,11 @@ import flask_cors
 from flask_cors import CORS, cross_origin
 import logging
 import hf_pred as lung
+import gradcam
 import treatment
 import explanation
+import base64
+import io
 
 logging.basicConfig(level=logging.INFO)
 
@@ -36,12 +39,19 @@ def fileUpload():
     lungModelPrediction = lung.predict(destination)
     print(f"The result is: {lungModelPrediction} ({type(lungModelPrediction)})")
     
+    gradcam_img = gradcam.compute_gradcam(destination)
+    buffer = io.BytesIO()
+    gradcam_img.save(buffer, format="PNG")
+    gradcam_image_bytes = buffer.getvalue()
+    encoded_string = base64.b64encode(gradcam_image_bytes).decode("utf-8")
+
     # LLM Prompting
     explanationText = explanation.generate_content(lungModelPrediction)
     treatmentText = treatment.generate_content(lungModelPrediction)
     
     response = {
         "diagnosis": lungModelPrediction,
+        "gradcam": encoded_string,
         "explanation": explanationText,
         "treatment": treatmentText
     }

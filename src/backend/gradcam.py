@@ -42,7 +42,5 @@ def compute_gradcam(img, STATE_DICT_PATH="../../model_code/model_ft_3.pt", NUM_C
         visualization = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
     
     return_img = Image.fromarray(visualization)
-    return_img.save('uploads/images/korean_cam2.png')
-
-compute_gradcam('./uploads/images/KoreanTestSubmission.jpg')
+    return return_img
 
