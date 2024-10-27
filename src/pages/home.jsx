@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Uploader from '../components/Uploader.jsx';
 import { Popup as ReactJSPopup } from 'reactjs-popup'; 
 import CustomPopup from './popup.jsx';
@@ -11,8 +11,14 @@ const Home = () => {
   const form = document.getElementById('upload-form');
 
   const [diagnosis, setDiagnosis] = useState('');
+  const [gradcam, setGradcam] = useState('');
+  const [gradcamImage, setGradcamImage] = useState('');
   const [explanation, setExplanation] = useState('');
   const [treatment, setTreatment] = useState('');
+
+  useEffect(() => {
+    console.log('Updated gradcamImage:', gradcamImage); // Log the updated value
+  }, [gradcamImage]);
 
   const resetUploader = () => {
     setFileName("No Selected File - ");
@@ -25,6 +31,7 @@ const Home = () => {
       <h2 className="inter-header subtitle">an ai lung cancer assistant</h2>
       <Uploader 
         setButtonPopup={setButtonPopup} 
+        setGradcam={setGradcam}
         setDiagnosis={setDiagnosis} 
         setExplanation={setExplanation} 
         setTreatment={setTreatment} 
@@ -34,6 +41,8 @@ const Home = () => {
         fileName={fileName}
         image={image}
         form={form}
+        gradcamImage={gradcamImage}
+        setGradcamImage={setGradcamImage}
       />
       <CustomPopup 
         trigger={buttonPopup} 
@@ -41,8 +50,10 @@ const Home = () => {
         resetUploader={resetUploader}
         form={form}
         diagnosis={diagnosis}
+        gradcam={gradcam}
         explanation={explanation}
-        treatment={treatment}/>
+        treatment={treatment}
+        gradcamImage={gradcamImage} />
     </>
   );
 }

@@ -11,6 +11,7 @@ const CustomPopup = (props) => {
 
   const diagnosisLabel = props.diagnosis === 'Normal' ? 'Healthy' : 'Cancer Detected';
   const diagnosisColor = props.diagnosis === 'Normal' ? 'green' : 'red';
+  console.log("Gradcam Url:",props.gradcamImage);
 
   return props.trigger ? (
     <>
@@ -31,6 +32,14 @@ const CustomPopup = (props) => {
               </div>
             </div>
             )}
+          <div className="gradcam">
+          <h2 className="inter-subheader">Grad-CAM Visualization</h2>
+          {props.gradcamImage ? (
+              <img src={props.gradcamImage} alt="Grad-CAM" style={{ maxWidth: '100%', marginTop: '20px' }} />
+            ) : (
+              <p>No Grad-CAM image available.</p>
+            )}
+          </div>
           <div className="treatment">
             <h2 className="inter-subheader">{props.diagnosis === 'Normal' ? 'Prevention' : 'Treatment'}</h2>
             <ReactMarkdown>{ props.treatment }</ReactMarkdown>
