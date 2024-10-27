@@ -7,6 +7,7 @@ from pytorch_grad_cam.utils.image import show_cam_on_image
 from torchvision.models import resnet50
 import torch.nn as nn
 from torchvision import transforms
+import os
 
 def compute_gradcam(img, STATE_DICT_PATH="../../model_code/model_ft_3.pt", NUM_CLASSES=4):
     model = resnet50(pretrained=True)
@@ -42,5 +43,8 @@ def compute_gradcam(img, STATE_DICT_PATH="../../model_code/model_ft_3.pt", NUM_C
         visualization = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
     
     return_img = Image.fromarray(visualization)
+
+    file_name = os.path.basename(img)
+    return_img.save('./uploads/images/grad_'+file_name)
     return return_img
 
