@@ -4,7 +4,7 @@ import { MdCloudUpload, MdDelete} from 'react-icons/md'
 import { AiFillFileImage } from 'react-icons/ai'
 import { TailSpin } from 'react-loader-spinner'
 
-function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage, setEducationalResources, loading, setLoading}) {
+function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDiagnosis, setGradcam, setExplanation, setTreatment, setGradcamImage, setEducationalResources, loading, setLoading, setGradcamAnalysis}) {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleUploadImage = (ev) => {
@@ -29,6 +29,8 @@ function Uploader({ setButtonPopup, setFileName, setImage, fileName, form, setDi
             setButtonPopup(true);
             setErrorMessage('');
             setEducationalResources(body.resources);
+            setGradcamAnalysis(body.analysis.trim());
+            console.log(typeof body.analysis);
 
             if (body.gradcam) {
                 const image = `data:image/jpeg;base64,${body.gradcam.trim()}`;;

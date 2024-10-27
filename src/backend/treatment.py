@@ -44,15 +44,15 @@ def generate_content(diagnosis):
 
     if diagnosis == "Normal":
         response = model.generate_content(
-            contents = f""" Provide a 1 paragraph explanation of various lung cancer and 5 bullet points of general ways to prevent lung cancer.
-                            In the paragraph explanation, always include what contributes to risk and who/what is strongly connected to lung cancer.
+            contents = f""" Provide a 1 paragraph explanation of various lung cancer and only 3 bullet points of general ways to prevent lung cancer.
+                            In the paragraph explanation, always include what contributes to risk and who/what is strongly connected to lung cancer. No Disclaimer.
                             """,
             safety_settings= safety_settings,
             generation_config= generation_config)
     else:
         response = model.generate_content(
-            contents = f"""Based on the diagnosis: {diagnosis}, provide only a list and explanation of 5 different treatments. Include 
-                            risks and side effects, treatment goals and expectations, potential/average duration and cost of treatment, impact on daily life.
+            contents = f"""Based on the diagnosis: {diagnosis}, provide only a list and explanation of only 3 different treatments. Include 
+                            risks and side effects, treatment goals and expectations, potential/average duration and cost of treatment, impact on daily life. No Disclaimer.
                             """,
             safety_settings= safety_settings,
             generation_config= generation_config)

@@ -17,6 +17,7 @@ const Home = () => {
   const [treatment, setTreatment] = useState('');
   const [educationalResources, setEducationalResources] = useState('');
   const [loading, setLoading] = useState(false);
+  const [gradcamAnalysis, setGradcamAnalysis] = useState('');
 
   useEffect(() => {
     console.log('Updated gradcamImage:', gradcamImage);
@@ -48,6 +49,7 @@ const Home = () => {
         setEducationalResources={setEducationalResources}
         loading={loading}
         setLoading={setLoading}
+        setGradcamAnalysis={setGradcamAnalysis}
       />
       <CustomPopup 
         trigger={buttonPopup} 
@@ -59,7 +61,8 @@ const Home = () => {
         explanation={explanation}
         treatment={treatment}
         gradcamImage={gradcamImage}
-        educationalResources={educationalResources} />
+        educationalResources={educationalResources}
+        gradcamAnalysis={gradcamAnalysis} />
     </>
   );
 }

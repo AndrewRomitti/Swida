@@ -11,6 +11,8 @@ import explanation
 import base64
 import io
 import educationalResources
+import gradcamAnalysis
+import testMime
 
 logging.basicConfig(level=logging.INFO)
 
@@ -50,13 +52,19 @@ def fileUpload():
     explanationText = explanation.generate_content(lungModelPrediction)
     treatmentText = treatment.generate_content(lungModelPrediction)
     resourcesArr = educationalResources.getEducationalResources(lungModelPrediction)
+    analysisText = gradcamAnalysis.generate_content(gradcam_image_bytes, lungModelPrediction)
+    
+    mime_type = testMime.get_mime_type_from_bytes(gradcam_image_bytes)
+    print(mime_type)
+
     
     response = {
         "diagnosis": lungModelPrediction,
         "gradcam": encoded_string,
         "explanation": explanationText,
         "treatment": treatmentText,
-        "resources": resourcesArr
+        "resources": resourcesArr,
+        "analysis": analysisText
     }
 
     return jsonify(response)

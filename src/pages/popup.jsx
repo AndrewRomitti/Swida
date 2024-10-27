@@ -33,7 +33,10 @@ const CustomPopup = (props) => {
               <div className="gradcam">
               <h2 className="inter-subheader">Grad-CAM Visualization</h2>
               {props.gradcamImage ? (
+                <div>
                   <img src={props.gradcamImage} alt="Grad-CAM" style={{ maxWidth: '100%', marginTop: '20px' }} />
+                  <ReactMarkdown>{ props.gradcamAnalysis || "No analysis available."}</ReactMarkdown>
+                </div>
                 ) : (
                   <p>No Grad-CAM image available.</p>
                 )}
